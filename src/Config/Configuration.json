@@ -1,48 +1,48 @@
 {
-    "On":{
-        "Order": ["COMMAND1","COMMAND2","COMMAND3","COMMAND4","COMMAND5","COMMAND6"],
-        "DefaultDelay": 2000
+    "on":{
+        "order": ["COMMAND1","COMMAND2","COMMAND3","COMMAND4","COMMAND5","COMMAND6"],
+        "default_delay": 2000
     },
-    "Off":{
-        "Order": ["COMMAND1","COMMAND2","COMMAND3","COMMAND4","COMMAND5","COMMAND6"],
-        "DefaultDelay": 2000
+    "off":{
+        "order": ["COMMAND1","COMMAND2","COMMAND3","COMMAND4","COMMAND5","COMMAND6"],
+        "default_delay": 2000
     },
-    "Commands":{
+    "commands":{
         "COMMAND_1": {
-            "Id": "COMMAND_1",
-            "On": "C1\r",
-            "Off": "C1\r",
-            "Delay": 0
+            "id": "COMMAND_1",
+            "on": "C1\r",
+            "off": "C1\r",
+            "delay": 0
         },
         "COMMAND_2": {
-            "Id": "COMMAND_2",
-            "On": "C2\r",
-            "Off": "C2\r",
-            "Delay": 0
+            "id": "COMMAND_2",
+            "on": "C2\r",
+            "off": "C2\r",
+            "delay": 0
         },
         "COMMAND_3": {
-            "Id": "COMMAND_3",
-            "On": "C3\r",
-            "Off": "C3\r",
-            "Delay": 0
+            "id": "COMMAND_3",
+            "on": "C3\r",
+            "off": "C3\r",
+            "delay": 0
         },
         "COMMAND_4": {
-            "Id": "COMMAND_4",
-            "On": "C4\r",
-            "Off": "C4\r",
-            "Delay": 0
+            "id": "COMMAND_4",
+            "on": "C4\r",
+            "off": "C4\r",
+            "delay": 0
         },
         "COMMAND_5": {
-            "Id": "COMMAND_5",
-            "On": "C5\r",
-            "Off": "C5\r",
-            "Delay": 0
+            "id": "COMMAND_5",
+            "on": "C5\r",
+            "off": "C5\r",
+            "delay": 0
         },
         "COMMAND_6": {
-            "Id": "COMMAND_6",
-            "On": "C6\r",
-            "Off": "C6\r",
-            "Delay": 0
+            "id": "COMMAND_6",
+            "on": "C6\r",
+            "off": "C6\r",
+            "delay": 0
         },
         "STATUS": "C??\r"
     }
