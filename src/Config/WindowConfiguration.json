@@ -1,5 +1,10 @@
 {
-    "width": 800,
-    "heigth": 600,
-    "title": "Controller for COM 1"
+    "width": 1024,
+    "heigth": 768,
+    "title": "Controller for COM 1",
+    "buttons":{
+        "width": 200,
+        "heigth": 60,
+        "padding": 10
+    }
 }

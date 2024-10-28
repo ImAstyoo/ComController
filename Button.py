@@ -1,3 +1,5 @@
+from Colors import WHITE
+
 # Button class
 class Button:
     def __init__(self, x, y, width, height, color, hover_color, pygame, text='', font_size=30):
@@ -6,9 +8,10 @@ class Button:
         self.hover_color = hover_color
         self.text = text
         self.font = pygame.font.Font(None, font_size)
-        self.text_surf = self.font.render(text, True, (255,255,255)) # TODO: get from config file
+        self.text_surf = self.font.render(text, True, WHITE) # TODO: get from config file
         self.text_rect = self.text_surf.get_rect(center=self.rect.center)
         self.pygame = pygame
+        self.isOn = False
 
     def draw(self, screen):
         # Change color on hover
