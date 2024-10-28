@@ -2,7 +2,7 @@ import sys
 import pygame
 import json
 from button_controller import *
-from Colors import *
+from colors import *
 
 def init_configuration(file):
     with open(file, "r") as file:
@@ -11,7 +11,10 @@ def init_configuration(file):
 
 def onClick(_button, _event):
     # TODO: Add the serial port controller function 
-    update_button(_button, not _button.isOn) # Invert the isOn boolean
+    update_button(_button) # Invert the isOn boolean
+
+def bind_onClick(command):
+    return
 
 if __name__ == "__main__":
     # Get configuration files
@@ -25,8 +28,12 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((window_configuration["width"], window_configuration["heigth"]))
     pygame.display.set_caption(window_configuration["title"])
     
+    commands_dict = configuration["commands"]
+
     # Fetch and create buttons from configuration file
-    buttons = get_button_list(pygame, configuration, window_configuration,"commands")
+    commands = get_button_list(pygame, commands_dict.keys(), window_configuration)
+
+    commands = [bind_onClick(command) for command in commands]
 
     # Main loop
     running = True
@@ -34,7 +41,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            for button in buttons:
+            for button in commands:
                 if button.is_clicked(event):
                     onClick(button, event)
 
@@ -42,7 +49,7 @@ if __name__ == "__main__":
         screen.fill((WHITE))  # Fill with white
 
         # Drawing all the buttons
-        [button.draw(screen) for button in buttons]
+        [button.draw(screen) for button in commands]
         
         # Update the display
         pygame.display.flip()

@@ -44,6 +44,11 @@
             "off": "C6\r",
             "delay": 0
         },
-        "STATUS": "C??\r"
+        "STATUS": {
+            "id": "COMMAND_6",
+            "on": "C??\r",
+            "off": "C??\r",
+            "delay": 0
+        }
     }
 }

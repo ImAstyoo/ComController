@@ -1,11 +1,11 @@
-from Button import Button
-from Colors import BLUE, PERIWINKLE
+from button import Button
+from colors import BLUE, PERIWINKLE
 
-def create_button(x, y, width, height, color, hover_color, pygame, text='', font_size=30):
+def create_button(x, y, width, height, color, hover_color, pygame,text='', font_size=30, ):
     # TODO: Take colors from config
     return Button(x, y, width, height, color, hover_color, pygame, text, font_size)
 
-def update_button(_button, isOn):
+def update_button(_button):
     # Update the button after click (ex: change text on/off)
     _button.swap_status()
 
@@ -17,16 +17,13 @@ def get_button_position(pos, window_size, padding, heigth):
     return pos
 
 # Create button dynamically from configuration file
-def get_button_list(pygame,_configuration, _window_configuration, key):
-    # Get buttons name
-    _button_list = [ command for command in _configuration[key]]
-    _buttons = []
-
+def get_button_list(pygame, commands, _window_configuration):
     # Get button parameters from configuration
-    _window_size = pygame.display.get_window_size()
-    _width = _window_configuration["buttons"]["width"]
-    _heigth = _window_configuration["buttons"]["heigth"]
-    _padding = _window_configuration["buttons"]["padding"]
+    window_size = pygame.display.get_window_size()
+    buttons_config = _window_configuration["buttons"]
+    width = buttons_config["width"]
+    heigth = buttons_config["heigth"]
+    padding = buttons_config["padding"]
 
     # Current draw position
     pos = { 
@@ -34,16 +31,16 @@ def get_button_list(pygame,_configuration, _window_configuration, key):
         "y": 0
     }
 
+    buttons = []
     # Cycle all names from configuration file and create the associated button
-    for _button in _button_list:
+    for command in commands:
         # Get x,y position
-        pos = get_button_position(pos, _window_size, _padding, _heigth) 
-
+        pos = get_button_position(pos, window_size, padding, heigth)
         # Create button
-        _buttons.append(create_button(pos["x"], pos["y"], _width, _heigth, BLUE, PERIWINKLE, pygame, text=_button))
+        buttons.append(create_button(pos["x"], pos["y"], width, heigth, BLUE, PERIWINKLE, pygame, command))
 
         # Update X value
-        pos["x"] += _padding + _width
+        pos["x"] += padding + width
 
     # Return the list of buttons ready to be drawn
-    return _buttons
+    return buttons
