@@ -7,9 +7,7 @@ def create_button(x, y, width, height, color, hover_color, pygame, text='', font
 
 def update_button(_button, isOn):
     # Update the button after click (ex: change text on/off)
-    if isOn:
-        _button.text = "on"
-    else: _button.text = "off"
+    _button.swap_status()
 
 def get_button_position(pos, window_size, padding, heigth):
     # Border touched? Increment y and set x to 0
@@ -36,6 +34,7 @@ def get_button_list(pygame,_configuration, _window_configuration, key):
         "y": 0
     }
 
+    # Cycle all names from configuration file and create the associated button
     for _button in _button_list:
         # Get x,y position
         pos = get_button_position(pos, _window_size, _padding, _heigth) 
@@ -45,4 +44,6 @@ def get_button_list(pygame,_configuration, _window_configuration, key):
 
         # Update X value
         pos["x"] += _padding + _width
+
+    # Return the list of buttons ready to be drawn
     return _buttons

@@ -11,7 +11,6 @@ def init_configuration(file):
 
 def onClick(_button, _event):
     # TODO: Add the serial port controller function 
-    print(_button.isOn)
     update_button(_button, not _button.isOn) # Invert the isOn boolean
 
 if __name__ == "__main__":
