@@ -1,8 +1,86 @@
 import sys
-import pygame
 import json
-from button_controller import *
-from colors import *
+import pygame
+
+WHITE = (255,255,255)
+BLUE = (0,0,255)
+PERIWINKLE = (100, 100, 255)
+
+# Button class
+class Button:
+    def __init__(self, x, y, width, height, color, hover_color, pygame, name='', font_size=30, onClick=lambda x: None):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+        self.hover_color = hover_color
+        self.name = name
+        self.text = f"{self.name}: off"
+        self.font = pygame.font.Font(None, font_size)
+        self.text_surf = self.font.render(self.text, True, WHITE)
+        self.text_rect = self.text_surf.get_rect(center=self.rect.center)
+        self.pygame = pygame
+        self.isOn = False
+        self.OnClick = onClick
+
+    def draw(self, screen):
+        # Change color on hover
+        current_color = self.hover_color if self.rect.collidepoint(self.pygame.mouse.get_pos()) else self.color
+        self.pygame.draw.rect(screen, current_color, self.rect)
+        screen.blit(self.text_surf, self.text_rect)
+
+    def is_clicked(self, event):
+        return event.type == self.pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos)
+    
+    def swap_status(self):
+        self.isOn = not self.isOn
+        if self.isOn:
+            self.text = f"{self.name}: on"
+        else:
+            self.text = f"{self.name}: off"
+        self.text_surf = self.font.render(self.text, True, WHITE)
+
+def create_button(x, y, width, height, color, hover_color, pygame,text='', font_size=30, ):
+    # TODO: Take colors from config
+    return Button(x, y, width, height, color, hover_color, pygame, text, font_size)
+
+def update_button(_button):
+    # Update the button after click (ex: change text on/off)
+    _button.swap_status()
+
+def get_button_position(pos, window_size, padding, heigth):
+    # Border touched? Increment y and set x to 0
+    if pos["x"] >= window_size[0]:
+            pos["y"] += padding + heigth
+            pos["x"] = 0 # Reset x position
+    return pos
+
+# Create button dynamically from configuration file
+def get_button_list(pygame, commands, _window_configuration):
+    # Get button parameters from configuration
+    window_size = pygame.display.get_window_size()
+    buttons_config = _window_configuration["buttons"]
+    width = buttons_config["width"]
+    heigth = buttons_config["heigth"]
+    padding = buttons_config["padding"]
+
+    # Current draw position
+    pos = { 
+        "x": 0,
+        "y": 0
+    }
+
+    buttons = []
+    # Cycle all names from configuration file and create the associated button
+    for command in commands:
+        # Get x,y position
+        pos = get_button_position(pos, window_size, padding, heigth)
+        # Create button
+        buttons.append(create_button(pos["x"], pos["y"], width, heigth, BLUE, PERIWINKLE, pygame, command))
+
+        # Update X value
+        pos["x"] += padding + width
+
+    # Return the list of buttons ready to be drawn
+    return buttons
 
 def init_configuration(file):
     with open(file, "r") as file:
