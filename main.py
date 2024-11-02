@@ -11,10 +11,11 @@ def init_configuration(file):
 
 def onClick(_button, _event):
     # TODO: Add the serial port controller function 
-    update_button(_button) # Invert the isOn boolean
+    update_button(_button) # Invert the isOn boolean # TODO: change this invert to 'request status and update interface'
 
 def bind_onClick(command):
-    return
+    # TODO: implement com port controller
+    return command 
 
 if __name__ == "__main__":
     # Get configuration files
@@ -47,10 +48,16 @@ if __name__ == "__main__":
 
         # Fill the screen with a color (RGB)
         screen.fill((WHITE))  # Fill with white
+        
+        # Request port status
+        # TODO: request port status
+
+        # Modify button status
+        # TODO: modify button status
 
         # Drawing all the buttons
         [button.draw(screen) for button in commands]
-        
+
         # Update the display
         pygame.display.flip()
 
